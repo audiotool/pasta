@@ -1,0 +1,9 @@
+deps:
+    - url: https://github.com/audiotool/manual
+      source_info:
+        reference: 61a667b266a6f0d5f05eb4db592858073c1a473c
+        message: added sitemap to deploy
+        author:
+            date: 2023-06-19T13:14:12Z
+            name: Silas Gyger
+            email: silasgyge@gmail.com

@@ -1,0 +1,17 @@
+clear_dirs: true
+deps:
+  # - url: https://github.com/audiotool/manual
+  #   from: images/
+  #   to: images/
+  #   include: pulverisateur.\.png
+  #   options:
+  #     # use heads/<branchname> for branch, tags/<tagname> for tags, or just a commit sha
+  #     ref: 61a667b266a6f0d5f05eb4db592858073c1a473c
+  - url: https://github.com/audiotool/manual
+    from: images/
+    to: images/
+    include: rasselbock.*.\.png
+    exclude: .*2.*
+    options:
+      # use heads/<branchname> for branch, tags/<tagname> for tags, or just a commit sha
+      ref: 61a667b266a6f0d5f05eb4db592858073c1a473c
