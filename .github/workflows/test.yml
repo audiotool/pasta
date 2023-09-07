@@ -1,0 +1,25 @@
+name: Tests
+
+on:
+  workflow_dispatch:
+  workflow_call:
+  push:
+    branches:
+        - main
+
+jobs:
+  test:
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.20'
+
+    - name: Test
+      run: |
+        go test ./...

@@ -1,0 +1,50 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitType": "docs",
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "Nearoo",
+      "name": "Silas Gyger",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6960788?v=4",
+      "profile": "https://github.com/Nearoo",
+      "contributions": [
+        "code",
+        "doc",
+        "infra",
+        "test"
+      ]
+    },
+    {
+      "login": "fpuc",
+      "name": "Felix",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1822814?v=4",
+      "profile": "https://github.com/fpuc",
+      "contributions": [
+        "code",
+        "doc",
+        "infra",
+        "test"
+      ]
+    },
+    {
+      "login": "jujurocket",
+      "name": "jujurocket",
+      "avatar_url": "https://avatars.githubusercontent.com/u/116574774?v=4",
+      "profile": "https://github.com/jujurocket",
+      "contributions": [
+        "doc"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true,
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "projectName": "pasta",
+  "projectOwner": "audiotool"
+}
