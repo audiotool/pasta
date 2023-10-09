@@ -67,8 +67,7 @@ func (*Copier) Copy(ctx context.Context, config copier.CopyConfig) (any, error) 
 		// check if file path is in dest directory
 		p := entry.GetPath()
 
-		// check if p is part of config.From
-		if match, _ := regexp.MatchString(config.From+".*", p); !match {
+		if !strings.HasPrefix(p, config.From) {
 			continue
 		}
 
