@@ -17,6 +17,14 @@ Specify a list of sources in `pasta.yaml`, run `pasta`, and keep your sanity.
 You can use it as a more predictable alternative to [git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules), or [easily extended it](#contribute) to support other sources, such as Gitlab, Google Drive, or FTP servers.
 
 
+## Installation
+
+The easiest way to install pasta is to [install go](https://go.dev/doc/install), checkout the repository, and call `go install` in the repository.
+
+Make sure you have `$(go env GOPATH)/bin` in your `PATH` variable, and invoke pasta with with `pasta`.
+
+Alternatively, download a binary from the [releases page](https://github.com/audiotool/pasta/releases), and install it manually.
+
 ## `pasta.yaml` 
 
 The following is an example `pasta.yaml`, making pasta:
