@@ -19,7 +19,7 @@ You can use it as a more predictable alternative to [git submodules](https://git
 
 ## Installation
 
-The easiest way to install pasta is to [install go](https://go.dev/doc/install), checkout the repository, and call `go install` in the repository.
+The easiest way to install pasta is to [install go](https://go.dev/doc/install), then do `go install github.com/audiotool/pasta@latest`.
 
 Make sure you have `$(go env GOPATH)/bin` in your `PATH` variable, and invoke pasta with with `pasta`.
 
