@@ -56,7 +56,9 @@ deps:
 
 ### Specification
 
-`keep_dirs` specifies weather the target directories should be deleted or not.
+`keep_dirs` specifies whether the target directories should first be deleted 
+before new files are copied there.
+
 
 `deps` is a list of dependencies, each with the following options:
 
