@@ -76,6 +76,10 @@ func newPastaConf(pathToYaml string) (*pastaConf, error) {
 		return nil, fmt.Errorf("couldn't parse file, error: %v", err)
 	}
 
+	if err = c.validate(); err != nil {
+		return nil, fmt.Errorf("invalid config: %v", err)
+	}
+
 	// pastaConf -> CopierOptions
 	for i, config := range c.Deps {
 		// convert pastaConf to CopierOptions
@@ -151,7 +155,7 @@ func (c *pastaConf) validate() error {
 		}
 
 		// files is exclusive with include/exclude
-		if len(config.Files) > 0 && (config.Include != "" && config.Exclude != "") {
+		if len(config.Files) > 0 && (config.Include != "" || config.Exclude != "") {
 			return fmt.Errorf("dependency %v: files and include/exclude are mutually exclusive", i)
 		}
 
