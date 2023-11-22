@@ -13,8 +13,8 @@ import (
 )
 
 type pastaConf struct {
-	KeepDirs bool         `yaml:"keep_dirs"`
-	Deps     []copierConf `yaml:"deps"`
+	KeepDirs bool          `yaml:"keep_dirs"`
+	Deps     []*copierConf `yaml:"deps"`
 
 	dependencies []pasta.Dependency
 }
@@ -51,7 +51,7 @@ func (conf *copierConf) ToCopierOptions() (*copier.CopyConfig, error) {
 
 	return &copier.CopyConfig{
 		URL:  conf.URL,
-		From: path.Clean(conf.From + "/"),
+		From: conf.From,
 		Keep: func(path string) bool {
 			if len(files) > 0 {
 				return files[path]
@@ -110,48 +110,14 @@ func (c *pastaConf) validate() error {
 			return fmt.Errorf("dependency %v: 'url' is required", i)
 		}
 
-		if config.From == "" {
-			return fmt.Errorf("dependency %v: 'from' is required", i)
+		err = validateFromField(config, i)
+		if err != nil {
+			return err
 		}
 
-		if config.To == "" {
-			return fmt.Errorf("dependency %v: 'to' is required", i)
-		}
-
-		// check from
-		if filepath.Clean(config.From)+"/" != config.From {
-			return fmt.Errorf("dependency %v: 'from' must contain a clean path", i)
-		}
-
-		if !strings.HasSuffix(config.From, "/") {
-			return fmt.Errorf("dependency %v: 'from' must end with '/'", i)
-		}
-
-		if strings.HasPrefix(config.From, "/") {
-			return fmt.Errorf("dependency %v: 'from' must not start with '/'", i)
-		}
-
-		if config.From == "." {
-			return fmt.Errorf("dependency %v: 'from' cannot be '.'", i)
-		}
-
-		// check to
-		if config.To == "." {
-			if len(config.Files) == 0 {
-				return fmt.Errorf("dependency %v: 'to' is set to '.' so 'files' must be used", i)
-			}
-		} else {
-			if !strings.HasSuffix(config.To, "/") {
-				return fmt.Errorf("dependency %v: 'to' must end with '/'", i)
-			}
-
-			if filepath.Clean(config.To)+"/" != config.To {
-				return fmt.Errorf("dependency %v: 'to' must contain a clean path", i)
-			}
-
-			if strings.HasPrefix(config.To, "/") {
-				return fmt.Errorf("dependency %v: 'to' must not start with '/' or must be '.'", i)
-			}
+		err = validateToField(config, i)
+		if err != nil {
+			return err
 		}
 
 		// files is exclusive with include/exclude
@@ -160,7 +126,7 @@ func (c *pastaConf) validate() error {
 		}
 
 		// convert pastaConf to CopierOptions
-		_, err := config.ToCopierOptions()
+		_, err = config.ToCopierOptions()
 
 		if err != nil {
 			return fmt.Errorf("couldn't parse dependency %v: %v", i, err)
@@ -168,4 +134,61 @@ func (c *pastaConf) validate() error {
 	}
 
 	return err
+}
+
+func validateFromField(config *copierConf, i int) error {
+	// If From is `/`, we want to copy all files.
+	// Since file paths dont start with `/`, we set empty string (so hasPrefix returns true).
+	if config.From == "/" {
+		config.From = ""
+		return nil
+	}
+
+	if config.From == "" {
+		return fmt.Errorf("dependency %v: 'from' is required", i)
+	}
+
+	if filepath.Clean(config.From)+"/" != config.From {
+		return fmt.Errorf("dependency %v: 'from' must contain a clean path", i)
+	}
+
+	if !strings.HasSuffix(config.From, "/") {
+		return fmt.Errorf("dependency %v: 'from' must end with '/'", i)
+	}
+
+	if strings.HasPrefix(config.From, "/") {
+		return fmt.Errorf("dependency %v: 'from' must not start with '/'", i)
+	}
+
+	if config.From == "." {
+		return fmt.Errorf("dependency %v: 'from' cannot be '.'", i)
+	}
+	return nil
+}
+
+func validateToField(config *copierConf, i int) error {
+	if config.To == "." {
+		if len(config.Files) == 0 {
+			return fmt.Errorf("dependency %v: 'to' is set to '.' so 'files' must be used", i)
+		}
+		return nil
+	}
+
+	if config.To == "" {
+		return fmt.Errorf("dependency %v: 'to' is required", i)
+	}
+
+	if !strings.HasSuffix(config.To, "/") {
+		return fmt.Errorf("dependency %v: 'to' must end with '/'", i)
+	}
+
+	if filepath.Clean(config.To)+"/" != config.To {
+		return fmt.Errorf("dependency %v: 'to' must contain a clean path", i)
+	}
+
+	if strings.HasPrefix(config.To, "/") {
+		return fmt.Errorf("dependency %v: 'to' must not start with '/' or must be '.'", i)
+	}
+
+	return nil
 }

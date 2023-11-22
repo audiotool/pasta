@@ -13,7 +13,7 @@ func TestPastaConfValidate(t *testing.T) {
 		{
 			name: "valid config",
 			conf: &pastaConf{
-				Deps: []copierConf{
+				Deps: []*copierConf{
 					{
 						URL:     "https://example.com",
 						From:    "path/to/source/",
@@ -27,7 +27,7 @@ func TestPastaConfValidate(t *testing.T) {
 		{
 			name: "missing url",
 			conf: &pastaConf{
-				Deps: []copierConf{
+				Deps: []*copierConf{
 					{
 						From: "path/to/source/",
 						To:   "path/to/destination/",
@@ -39,7 +39,7 @@ func TestPastaConfValidate(t *testing.T) {
 		{
 			name: "missing from",
 			conf: &pastaConf{
-				Deps: []copierConf{
+				Deps: []*copierConf{
 					{
 						URL: "https://example.com",
 						To:  "path/to/destination/",
@@ -51,7 +51,7 @@ func TestPastaConfValidate(t *testing.T) {
 		{
 			name: "missing to",
 			conf: &pastaConf{
-				Deps: []copierConf{
+				Deps: []*copierConf{
 					{
 						URL:  "https://example.com",
 						From: "path/to/source/",
@@ -63,7 +63,7 @@ func TestPastaConfValidate(t *testing.T) {
 		{
 			name: "invalid from",
 			conf: &pastaConf{
-				Deps: []copierConf{
+				Deps: []*copierConf{
 					{
 						URL:  "https://example.com",
 						From: "/path/to/source/",
@@ -76,7 +76,7 @@ func TestPastaConfValidate(t *testing.T) {
 		{
 			name: "invalid to",
 			conf: &pastaConf{
-				Deps: []copierConf{
+				Deps: []*copierConf{
 					{
 						URL:  "https://example.com",
 						From: "path/to/source/",
@@ -89,7 +89,7 @@ func TestPastaConfValidate(t *testing.T) {
 		{
 			name: "valid dot to with files",
 			conf: &pastaConf{
-				Deps: []copierConf{
+				Deps: []*copierConf{
 					{
 						URL:   "https://example.com",
 						From:  "path/to/source/",
@@ -103,7 +103,7 @@ func TestPastaConfValidate(t *testing.T) {
 		{
 			name: "valid to with files",
 			conf: &pastaConf{
-				Deps: []copierConf{
+				Deps: []*copierConf{
 					{
 						URL:   "https://example.com",
 						From:  "path/to/source/",
@@ -117,7 +117,7 @@ func TestPastaConfValidate(t *testing.T) {
 		{
 			name: "invalid to with leading slash",
 			conf: &pastaConf{
-				Deps: []copierConf{
+				Deps: []*copierConf{
 					{
 						URL:  "https://example.com",
 						From: "path/to/source/",
@@ -130,7 +130,7 @@ func TestPastaConfValidate(t *testing.T) {
 		{
 			name: "invalid to with dot",
 			conf: &pastaConf{
-				Deps: []copierConf{
+				Deps: []*copierConf{
 					{
 						URL:  "https://example.com",
 						From: "path/to/source/",
@@ -143,7 +143,7 @@ func TestPastaConfValidate(t *testing.T) {
 		{
 			name: "invalid to with leading slash and dot",
 			conf: &pastaConf{
-				Deps: []copierConf{
+				Deps: []*copierConf{
 					{
 						URL:  "https://example.com",
 						From: "path/to/source/",
@@ -156,7 +156,7 @@ func TestPastaConfValidate(t *testing.T) {
 		{
 			name: "invalid files with include and exclude",
 			conf: &pastaConf{
-				Deps: []copierConf{
+				Deps: []*copierConf{
 					{
 						URL:     "https://example.com",
 						From:    "path/to/source/",
@@ -172,7 +172,7 @@ func TestPastaConfValidate(t *testing.T) {
 		{
 			name: "invalid to '/' potentially overwriting/removing pasta.yaml",
 			conf: &pastaConf{
-				Deps: []copierConf{
+				Deps: []*copierConf{
 					{
 						URL:  "https://example.com",
 						From: "foo/",
@@ -185,7 +185,7 @@ func TestPastaConfValidate(t *testing.T) {
 		{
 			name: "invalid `files` with `include`",
 			conf: &pastaConf{
-				Deps: []copierConf{
+				Deps: []*copierConf{
 					{
 						URL:     "https://example.com",
 						From:    "path/to/source/",
@@ -200,7 +200,7 @@ func TestPastaConfValidate(t *testing.T) {
 		{
 			name: "invalid `files` with `exclude`",
 			conf: &pastaConf{
-				Deps: []copierConf{
+				Deps: []*copierConf{
 					{
 						URL:     "https://example.com",
 						From:    "path/to/source/",
