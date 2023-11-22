@@ -169,6 +169,49 @@ func TestPastaConfValidate(t *testing.T) {
 			},
 			wantErr: true,
 		},
+		{
+			name: "invalid to '/' potentially overwriting/removing pasta.yaml",
+			conf: &pastaConf{
+				Deps: []copierConf{
+					{
+						URL:  "https://example.com",
+						From: "foo/",
+						To:   "/",
+					},
+				},
+			},
+			wantErr: true,
+		},
+		{
+			name: "invalid `files` with `include`",
+			conf: &pastaConf{
+				Deps: []copierConf{
+					{
+						URL:     "https://example.com",
+						From:    "path/to/source/",
+						To:      ".",
+						Include: "*.go",
+						Files:   []string{"file1.txt", "file2.txt"},
+					},
+				},
+			},
+			wantErr: true,
+		},
+		{
+			name: "invalid `files` with `exclude`",
+			conf: &pastaConf{
+				Deps: []copierConf{
+					{
+						URL:     "https://example.com",
+						From:    "path/to/source/",
+						To:      ".",
+						Exclude: "*.txt",
+						Files:   []string{"file1.txt", "file2.txt"},
+					},
+				},
+			},
+			wantErr: true,
+		},
 	}
 
 	for _, tt := range tests {
