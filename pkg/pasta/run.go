@@ -98,8 +98,12 @@ func Run(ctx context.Context, deps []Dependency, dryRun, keepDirs bool, pastaFil
 	}
 
 	if !dryRun && !keepDirs {
-		// remove all target directories
+		// remove target directories if enabled
 		for _, dep := range deps {
+			if !dep.Option.ClearTarget {
+				continue
+			}
+
 			if err := os.RemoveAll(dep.Target); err != nil {
 				return fmt.Errorf("error removing target directory %v: %v", dep.Target, err)
 			}

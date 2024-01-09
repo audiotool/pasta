@@ -58,7 +58,8 @@ func (conf *copierConf) ToCopierOptions() (*copier.CopyConfig, error) {
 			}
 			return includeRegexp.MatchString(path) && !excludeRegexp.MatchString(path)
 		},
-		Options: conf.Options,
+		Options:     conf.Options,
+		ClearTarget: len(files) == 0,
 	}, nil
 }
 

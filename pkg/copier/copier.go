@@ -26,4 +26,6 @@ type CopyConfig struct {
 	Options map[string]string
 	// TempDir contains the path to write all files.
 	TempDir string
+	// ClearTarget is true if the target directory should be cleared before copying
+	ClearTarget bool
 }
